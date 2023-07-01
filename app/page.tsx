@@ -51,7 +51,6 @@ const Card = styled.div`
   @media ${device.md} {
     height: 190px;
     width: 100%;
-    pointer-events: none;
     border: none;
     transition: none;
   }
