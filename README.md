@@ -25,7 +25,7 @@ https://codesandbox.io/s/competent-microservice-w5x4df?file=/index.html
 
 ## Демо второго задания
 
-https://multi-step-form-val22.netlify.app/](https://brave-test-task.netlify.app/
+https://brave-test-task.netlify.app/
 
 ## Клонирование репозитория
 
