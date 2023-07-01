@@ -1,95 +1,108 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import Link from "next/link";
+
+import { styled } from "styled-components";
+import { device } from "@/styles/breakpoints";
+import { providers } from "@/utils/constants";
+import Footer from "@/components/Footer";
+
+const Cards = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2em 0 0 0;
+  flex-wrap: wrap;
+  height: 300px;
+  overflow: hidden;
+
+  @media ${device.md} {
+    flex-direction: column;
+    height: 100%;
+  }
+`;
+
+const Main = styled.main`
+  width: 90%;
+  margin: 0 auto;
+
+  @media ${device.md} {
+    text-align: center;
+    margin-top: 0;
+  }
+`;
+
+const Card = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 280px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @media ${device.md} {
+    height: 190px;
+    width: 100%;
+    pointer-events: none;
+    border: none;
+    transition: none;
+  }
+`;
+
+const CardName = styled.div`
+  margin-top: 1em;
+  font-size: 18px;
+  text-align: center;
+
+  @media ${device.md} {
+    font-size: 16px;
+  }
+`;
+
+const CardImg = styled.img`
+  width: 200px;
+  height: 70px;
+  object-fit: scale-down;
+
+  @media ${device.md} {
+    width: 180px;
+    height: 60px;
+  }
+`;
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    <Main>
+      <h1>Выберите провайдера</h1>
+      <Cards>
+        {providers.map((item, index) => (
+          <Card key={item.id}>
+            <Link
+              href={{
+                pathname: "/payment",
+                query: {
+                  name: item.name,
+                  img: item.img,
+                },
+              }}
+            >
+              <div>
+                <CardImg src={item.img} alt="logo" />
+              </div>
+              <CardName>{item.name}</CardName>
+            </Link>
+          </Card>
+        ))}
+      </Cards>
+      <Footer />
+    </Main>
+  );
 }
