@@ -1,34 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Brave Developers Test Task
 
-## Getting Started
+Тестовое задание от Brave Developers
+Web приложение - терминал оплаты мобильного телефона.
+В приложении должен быть главный экран со списком операторов - МТС, Билайн,
+Мегафон. Список должен быть расширяем. По клику на оператора переходить на
+экран формы оплаты.
+Экран с формой оплаты должен содержать выбранного оператора, поле ввода
+телефона с маской и валидацией, и поле ввода суммы в рублях с маской и
+валидацией (мин 1 и макс 1000 руб). Кнопка подтверждения, которая ожидает ответа
+от сервера. После ответа показывается сообщение об успехе или об ошибке. В случае
+успеха переходим на основной экран.
 
-First, run the development server:
+## Используемый стек
+
++ React
++ Typescript
++ React Hook Form
++ Next JS
++ Styled Components
+
+## Первое задание
+
+https://codesandbox.io/s/competent-microservice-w5x4df?file=/index.html
+
+## Демо второго задания
+
+https://multi-step-form-val22.netlify.app/](https://brave-test-task.netlify.app/
+
+## Клонирование репозитория
 
 ```bash
+git clone https://github.com/valvalov22/brave-test-task.git
+# Клонирование репозитория
+npm install
+# Установка зависимостей
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+# Запуск сервера в режиме разработки
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
