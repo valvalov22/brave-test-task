@@ -10,9 +10,9 @@ const Cards = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 2em 0 0 0;
+  margin: 1em 0 0 0;
   flex-wrap: wrap;
-  height: 300px;
+  height: 100%;
   overflow: hidden;
 
   @media ${device.md} {
@@ -35,17 +35,22 @@ const Card = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  position: relative;
+  top: 50%;
+  width: 100%;
   height: 280px;
   margin: 0;
-  padding: 0;
+  padding: 0 1em 0 1em;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.4s ease-in-out;
   overflow: hidden;
+  flex-direction: column;
+  margin-top: 1em;
+  // box-shadow: 9px -11px rgba(0, 0, 0, 0.01);
 
   &:hover {
-    transform: scale(1.05);
+    transform: scaleX(1.03);
   }
 
   @media ${device.md} {
@@ -83,22 +88,21 @@ export default function Home() {
       <h1>Выберите провайдера</h1>
       <Cards>
         {providers.map((item, index) => (
-          <Card key={item.id}>
-            <Link
-              href={{
-                pathname: "/payment",
-                query: {
-                  name: item.name,
-                  img: item.img,
-                },
-              }}
-            >
+          <Link
+            key={item.id}
+            href={{
+              pathname: `/payment/${item.id + 1}`,
+            }}
+          >
+            <Card>
               <div>
                 <CardImg src={item.img} alt="logo" />
               </div>
-              <CardName>{item.name}</CardName>
-            </Link>
-          </Card>
+              <div>
+                <CardName>{item.name}</CardName>
+              </div>
+            </Card>
+          </Link>
         ))}
       </Cards>
       <Footer />

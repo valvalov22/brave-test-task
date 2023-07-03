@@ -73,7 +73,7 @@ const Spinner = styled.div`
   border: 8px solid;
   border-color: #3d5af1 transparent #3d5af1 transparent;
   border-radius: 50%;
-  animation: ${rotateAnimation} 1.2s linear infinite;
+  animation: ${rotateAnimation} 1.5s linear infinite;
 `;
 
 const Modal: React.FC<IModalProps> = ({

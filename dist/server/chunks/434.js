@@ -70,12 +70,14 @@ function StyledComponentsRegistry({ children }) {
 const size = {
     xs: "319px",
     xm: "326px",
-    md: "708px"
+    md: "708px",
+    tb: "800px"
 };
 const device = {
     xs: `(max-width: ${size.xs})`,
     xm: `(max-width: ${size.xm})`,
-    md: `(max-width: ${size.md})`
+    md: `(max-width: ${size.md})`,
+    tb: `(max-width: ${size.tb})`
 };
 
 

@@ -346,18 +346,20 @@ var constants = __webpack_require__(1);
 
 
 
+
 const TheFooter = styled_components_cjs/* styled */.zo.footer`
   position: absolute;
   bottom: 5%;
   left: 50%;
   transform: translate(-50%);
+  // position: relative;
   font-size: 14px;
 
   a {
     color: red;
   }
 
-  @media ${breakpoints/* device */.U.md} {
+  @media ${breakpoints/* device */.U.tb} {
     position: relative;
     margin: 1em auto 1em auto;
     text-align: center;
@@ -367,18 +369,45 @@ const TheFooter = styled_components_cjs/* styled */.zo.footer`
     font-size: 10px;
   }
 `;
+const TheFooterCards = styled_components_cjs/* styled */.zo.footer`
+  position: relative;
+  font-size: 14px;
+  text-align: center;
+  margin: 1em 0 1em 0;
+
+  a {
+    color: red;
+  }
+
+  @media ${breakpoints/* device */.U.xm} {
+    font-size: 10px;
+  }
+`;
 const Footer = ()=>{
-    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)(TheFooter, {
-        children: [
-            /*#__PURE__*/ jsx_runtime_.jsx("hr", {}),
-            "Created by",
-            " ",
-            /*#__PURE__*/ jsx_runtime_.jsx("a", {
-                href: "https://github.com/valvalov22",
-                target: "_blank",
-                children: "\xa9ValValov22"
-            })
-        ]
+    return /*#__PURE__*/ jsx_runtime_.jsx(jsx_runtime_.Fragment, {
+        children: constants/* providers */.a.length < 8 ? /*#__PURE__*/ (0,jsx_runtime_.jsxs)(TheFooter, {
+            children: [
+                /*#__PURE__*/ jsx_runtime_.jsx("hr", {}),
+                "Created by",
+                " ",
+                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                    href: "https://github.com/valvalov22",
+                    target: "_blank",
+                    children: "\xa9ValValov22"
+                })
+            ]
+        }) : /*#__PURE__*/ (0,jsx_runtime_.jsxs)(TheFooterCards, {
+            children: [
+                /*#__PURE__*/ jsx_runtime_.jsx("hr", {}),
+                "Created by",
+                " ",
+                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                    href: "https://github.com/valvalov22",
+                    target: "_blank",
+                    children: "\xa9ValValov22"
+                })
+            ]
+        })
     });
 };
 /* harmony default export */ const components_Footer = (Footer);
@@ -394,9 +423,9 @@ const Cards = styled_components_cjs/* styled */.zo.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 2em 0 0 0;
+  margin: 1em 0 0 0;
   flex-wrap: wrap;
-  height: 300px;
+  height: 100%;
   overflow: hidden;
 
   @media ${breakpoints/* device */.U.md} {
@@ -417,17 +446,22 @@ const Card = styled_components_cjs/* styled */.zo.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  position: relative;
+  top: 50%;
+  width: 100%;
   height: 280px;
   margin: 0;
-  padding: 0;
+  padding: 0 1em 0 1em;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.4s ease-in-out;
   overflow: hidden;
+  flex-direction: column;
+  margin-top: 1em;
+  // box-shadow: 9px -11px rgba(0, 0, 0, 0.01);
 
   &:hover {
-    transform: scale(1.05);
+    transform: scaleX(1.03);
   }
 
   @media ${breakpoints/* device */.U.md} {
@@ -463,15 +497,11 @@ function Home() {
                 children: "Выберите провайдера"
             }),
             /*#__PURE__*/ jsx_runtime_.jsx(Cards, {
-                children: constants/* providers */.a.map((item, index)=>/*#__PURE__*/ jsx_runtime_.jsx(Card, {
-                        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)((link_default()), {
-                            href: {
-                                pathname: "/payment",
-                                query: {
-                                    name: item.name,
-                                    img: item.img
-                                }
-                            },
+                children: constants/* providers */.a.map((item, index)=>/*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
+                        href: {
+                            pathname: `/payment/${item.id + 1}`
+                        },
+                        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(Card, {
                             children: [
                                 /*#__PURE__*/ jsx_runtime_.jsx("div", {
                                     children: /*#__PURE__*/ jsx_runtime_.jsx(CardImg, {
@@ -479,8 +509,10 @@ function Home() {
                                         alt: "logo"
                                     })
                                 }),
-                                /*#__PURE__*/ jsx_runtime_.jsx(CardName, {
-                                    children: item.name
+                                /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                                    children: /*#__PURE__*/ jsx_runtime_.jsx(CardName, {
+                                        children: item.name
+                                    })
                                 })
                             ]
                         })
