@@ -28,6 +28,10 @@ const Wrapper = styled.div`
   position: relative;
   text-align: center;
 
+  span {
+    display: block;
+  }
+
   @media ${device.md} {
     width: 90%;
   }
@@ -87,38 +91,36 @@ const Modal: React.FC<IModalProps> = ({
   provider,
 }) => {
   return (
-    <>
+    <ModalContainer>
       {isOpen ? (
-        <ModalContainer>
-          <Wrapper>
-            {isLoading ? (
-              <LoaderContainer>
-                <Spinner />
-              </LoaderContainer>
-            ) : (
-              <div>
-                <h2>{heading}</h2>
-                {rejected ? (
-                  <div>
-                    <div>Повторите попытку</div>
-                    <Emoji>🫥</Emoji>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Номер телефона: {phone}</div>
-                    <div>Сумма пополнения: {cash}₽</div>
-                    <div>Провайдер: {provider}</div>
-                    <div>Время: {getDate()}</div>
-                    <Emoji>🙂</Emoji>
-                  </div>
-                )}
-                <div>{button}</div>
-              </div>
-            )}
-          </Wrapper>
-        </ModalContainer>
+        <Wrapper>
+          {isLoading ? (
+            <LoaderContainer>
+              <Spinner />
+            </LoaderContainer>
+          ) : (
+            <div>
+              <h2>{heading}</h2>
+              {rejected ? (
+                <div>
+                  <span>Повторите попытку</span>
+                  <Emoji>🫥</Emoji>
+                </div>
+              ) : (
+                <div>
+                  <span>Номер телефона: {phone}</span>
+                  <span>Сумма пополнения: {cash}₽</span>
+                  <span>Провайдер: {provider}</span>
+                  <span>Время: {getDate()}</span>
+                  <Emoji>🙂</Emoji>
+                </div>
+              )}
+              <div>{button}</div>
+            </div>
+          )}
+        </Wrapper>
       ) : null}
-    </>
+    </ModalContainer>
   );
 };
 

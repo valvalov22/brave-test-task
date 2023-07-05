@@ -503,16 +503,12 @@ function Home() {
                         },
                         children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(Card, {
                             children: [
-                                /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                                    children: /*#__PURE__*/ jsx_runtime_.jsx(CardImg, {
-                                        src: item.img,
-                                        alt: "logo"
-                                    })
+                                /*#__PURE__*/ jsx_runtime_.jsx(CardImg, {
+                                    src: item.img,
+                                    alt: "logo"
                                 }),
-                                /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                                    children: /*#__PURE__*/ jsx_runtime_.jsx(CardName, {
-                                        children: item.name
-                                    })
+                                /*#__PURE__*/ jsx_runtime_.jsx(CardName, {
+                                    children: item.name
                                 })
                             ]
                         })

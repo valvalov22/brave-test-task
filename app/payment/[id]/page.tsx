@@ -109,16 +109,13 @@ type Params = {
 export default function Page({ params: { id } }: Params) {
   const [open, setOpen] = useState(false);
   const [failedOpen, setFailedOpen] = useState(false);
-  const [APIResponse, setAPIResponse] = useState({
-    success: false,
-  });
 
   const [phone, setPhone] = useState("");
   const [cash, setCash] = useState(0);
 
   const [loading, setLoading] = useState(false);
 
-  const currentProvider = providers[id - 1];
+  const currentProvider = providers.find((provider) => provider.id === id - 1);
 
   const { onChange, onKeyDown } = usePhoneMask();
 
@@ -136,21 +133,18 @@ export default function Page({ params: { id } }: Params) {
   const submit = async (data: IFormValues) => {
     setLoading(true);
     setOpen(true);
-    try {
-      await getFakeResponse().then((response) => setAPIResponse(response));
-      if (APIResponse.success) {
+
+    await getFakeResponse()
+      .then(() => {
         setFailedOpen(false);
         setPhone(data.phone);
         setCash(data.cash);
-        setOpen(true);
-      } else if (!APIResponse.success) {
+      })
+      .catch(() => {
         setOpen(false);
         setFailedOpen(true);
-      }
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -159,8 +153,8 @@ export default function Page({ params: { id } }: Params) {
         <BackSpan>Назад</BackSpan>
       </Link>
       <ProviderContainer>
-        <CardImg src={currentProvider.img} alt="logo" />
-        <div>Выбранный провайдер: {currentProvider.name}</div>
+        <CardImg src={currentProvider?.img} alt="logo" />
+        <span>Выбранный провайдер: {currentProvider?.name}</span>
       </ProviderContainer>
       <form onSubmit={handleSubmit(submit)}>
         <Label htmlFor="phone">Номер телефона</Label>
@@ -226,7 +220,7 @@ export default function Page({ params: { id } }: Params) {
           isOpen={open}
           phone={phone}
           cash={cash}
-          provider={currentProvider.name}
+          provider={currentProvider?.name}
           rejected={false}
           onClose={() => setOpen(false)}
           isLoading={loading}

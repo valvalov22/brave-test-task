@@ -95,12 +95,8 @@ export default function Home() {
             }}
           >
             <Card>
-              <div>
-                <CardImg src={item.img} alt="logo" />
-              </div>
-              <div>
-                <CardName>{item.name}</CardName>
-              </div>
+              <CardImg src={item.img} alt="logo" />
+              <CardName>{item.name}</CardName>
             </Card>
           </Link>
         ))}

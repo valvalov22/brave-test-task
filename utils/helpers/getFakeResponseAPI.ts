@@ -8,7 +8,7 @@ interface IResponse {
 }
 
 export const getFakeResponse = async () => {
-  return await new Promise<IResponse>((resolve) => {
+  return await new Promise<IResponse>((resolve, reject) => {
     const index = Math.floor(Math.random() * Object.keys(Response).length);
     const value = Object.values(Response)[index];
     setTimeout(() => {
@@ -17,7 +17,7 @@ export const getFakeResponse = async () => {
           success: true,
         });
       } else if (Response[value] === Response.FAILED) {
-        resolve({
+        reject({
           success: false,
         });
       }

@@ -387,6 +387,10 @@ const Wrapper = styled_components_cjs/* styled */.zo.div`
   position: relative;
   text-align: center;
 
+  span {
+    display: block;
+  }
+
   @media ${breakpoints/* device */.U.md} {
     width: 90%;
   }
@@ -430,62 +434,60 @@ const Spinner = styled_components_cjs/* styled */.zo.div`
   animation: ${rotateAnimation} 1.5s linear infinite;
 `;
 const Modal = ({ heading, button, isOpen, rejected, isLoading, phone, cash, provider })=>{
-    return /*#__PURE__*/ jsx_runtime_.jsx(jsx_runtime_.Fragment, {
-        children: isOpen ? /*#__PURE__*/ jsx_runtime_.jsx(ModalContainer, {
-            children: /*#__PURE__*/ jsx_runtime_.jsx(Wrapper, {
-                children: isLoading ? /*#__PURE__*/ jsx_runtime_.jsx(LoaderContainer, {
-                    children: /*#__PURE__*/ jsx_runtime_.jsx(Spinner, {})
-                }) : /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-                    children: [
-                        /*#__PURE__*/ jsx_runtime_.jsx("h2", {
-                            children: heading
-                        }),
-                        rejected ? /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-                            children: [
-                                /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                                    children: "Повторите попытку"
-                                }),
-                                /*#__PURE__*/ jsx_runtime_.jsx(Emoji, {
-                                    children: "\uD83E\uDEE5"
-                                })
-                            ]
-                        }) : /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-                            children: [
-                                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-                                    children: [
-                                        "Номер телефона: ",
-                                        phone
-                                    ]
-                                }),
-                                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-                                    children: [
-                                        "Сумма пополнения: ",
-                                        cash,
-                                        "₽"
-                                    ]
-                                }),
-                                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-                                    children: [
-                                        "Провайдер: ",
-                                        provider
-                                    ]
-                                }),
-                                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-                                    children: [
-                                        "Время: ",
-                                        getDate()
-                                    ]
-                                }),
-                                /*#__PURE__*/ jsx_runtime_.jsx(Emoji, {
-                                    children: "\uD83D\uDE42"
-                                })
-                            ]
-                        }),
-                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                            children: button
-                        })
-                    ]
-                })
+    return /*#__PURE__*/ jsx_runtime_.jsx(ModalContainer, {
+        children: isOpen ? /*#__PURE__*/ jsx_runtime_.jsx(Wrapper, {
+            children: isLoading ? /*#__PURE__*/ jsx_runtime_.jsx(LoaderContainer, {
+                children: /*#__PURE__*/ jsx_runtime_.jsx(Spinner, {})
+            }) : /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                children: [
+                    /*#__PURE__*/ jsx_runtime_.jsx("h2", {
+                        children: heading
+                    }),
+                    rejected ? /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx("span", {
+                                children: "Повторите попытку"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx(Emoji, {
+                                children: "\uD83E\uDEE5"
+                            })
+                        ]
+                    }) : /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                        children: [
+                            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("span", {
+                                children: [
+                                    "Номер телефона: ",
+                                    phone
+                                ]
+                            }),
+                            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("span", {
+                                children: [
+                                    "Сумма пополнения: ",
+                                    cash,
+                                    "₽"
+                                ]
+                            }),
+                            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("span", {
+                                children: [
+                                    "Провайдер: ",
+                                    provider
+                                ]
+                            }),
+                            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("span", {
+                                children: [
+                                    "Время: ",
+                                    getDate()
+                                ]
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx(Emoji, {
+                                children: "\uD83D\uDE42"
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                        children: button
+                    })
+                ]
             })
         }) : null
     });
@@ -598,7 +600,7 @@ var Response;
     Response["SUCCESS"] = "SUCCESS";
 })(Response || (Response = {}));
 const getFakeResponse = async ()=>{
-    return await new Promise((resolve)=>{
+    return await new Promise((resolve, reject)=>{
         const index = Math.floor(Math.random() * Object.keys(Response).length);
         const value = Object.values(Response)[index];
         setTimeout(()=>{
@@ -607,7 +609,7 @@ const getFakeResponse = async ()=>{
                     success: true
                 });
             } else if (Response[value] === Response.FAILED) {
-                resolve({
+                reject({
                     success: false
                 });
             }
@@ -711,33 +713,23 @@ const MoneySign = styled_components_cjs/* styled */.zo.div`
 function Page({ params: { id } }) {
     const [open, setOpen] = (0,react_.useState)(false);
     const [failedOpen, setFailedOpen] = (0,react_.useState)(false);
-    const [APIResponse, setAPIResponse] = (0,react_.useState)({
-        success: false
-    });
     const [phone, setPhone] = (0,react_.useState)("");
     const [cash, setCash] = (0,react_.useState)(0);
     const [loading, setLoading] = (0,react_.useState)(false);
-    const currentProvider = constants/* providers */.a[id - 1];
+    const currentProvider = constants/* providers */.a.find((provider)=>provider.id === id - 1);
     const { onChange, onKeyDown } = usePhoneMask();
     const { register, handleSubmit, formState: { errors } } = (0,index_esm/* useForm */.cI)();
     const submit = async (data)=>{
         setLoading(true);
         setOpen(true);
-        try {
-            await getFakeResponse().then((response)=>setAPIResponse(response));
-            if (APIResponse.success) {
-                setFailedOpen(false);
-                setPhone(data.phone);
-                setCash(data.cash);
-                setOpen(true);
-            } else if (!APIResponse.success) {
-                setOpen(false);
-                setFailedOpen(true);
-            }
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
+        await getFakeResponse().then(()=>{
+            setFailedOpen(false);
+            setPhone(data.phone);
+            setCash(data.cash);
+        }).catch(()=>{
+            setOpen(false);
+            setFailedOpen(true);
+        }).finally(()=>setLoading(false));
     };
     return /*#__PURE__*/ (0,jsx_runtime_.jsxs)(Container, {
         children: [
@@ -750,13 +742,13 @@ function Page({ params: { id } }) {
             /*#__PURE__*/ (0,jsx_runtime_.jsxs)(ProviderContainer, {
                 children: [
                     /*#__PURE__*/ jsx_runtime_.jsx(CardImg, {
-                        src: currentProvider.img,
+                        src: currentProvider?.img,
                         alt: "logo"
                     }),
-                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("span", {
                         children: [
                             "Выбранный провайдер: ",
-                            currentProvider.name
+                            currentProvider?.name
                         ]
                     })
                 ]
@@ -840,7 +832,7 @@ function Page({ params: { id } }) {
                 isOpen: open,
                 phone: phone,
                 cash: cash,
-                provider: currentProvider.name,
+                provider: currentProvider?.name,
                 rejected: false,
                 onClose: ()=>setOpen(false),
                 isLoading: loading
